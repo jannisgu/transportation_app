@@ -180,3 +180,119 @@ h2 {
   margin-left: 5px;
 }
 
+.departure-page {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  background-color: rgb(233, 233, 233);
+}
+.departure-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  max-width: 550px;
+  padding-top: 30px;
+  padding-bottom: 0px;
+  background-color: var(--main-clr);
+  border-radius: 10px;
+  margin-block: 20px;
+}
+.departure-head h1 {
+  margin-top: 0px;
+  font-size: 1.9rem;
+  max-width: 550px;
+  text-align: center;
+  color: white;
+  cursor: default;
+}
+.departure-head .flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0px 20px;
+}
+.departure-head h2 {
+  font-size: 1.5rem;
+  color: rgb(27, 27, 27);
+  text-transform: uppercase;
+  cursor: default;
+}
+.back-to-search {
+  padding: 8px 12px;
+  border: 0px;
+  border-radius: 8px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+}
+.back-to-search:hover {
+  color: var(--main-clr);
+}
+
+.departures {
+  width: 80%;
+  max-width: 550px;
+}
+.departure {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  margin-bottom: 25px;
+  padding: 12px 20px;
+  border-radius: 10px;
+}
+.departure .time {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: center;
+  align-items: center;
+  justify-self: flex-start;
+  gap: 5px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  position: relative;
+}
+
+.departure .time.delayed .planned, .departure .time.tooEarly .planned {
+  color: rgb(146, 146, 146);
+  text-decoration: line-through;
+}
+.departure .time .delay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.65rem;
+  font-weight: 400;
+  color: rgb(146, 146, 146);
+  grid-column: span 2;
+}
+.departure .time .delay>span {
+  margin-inline: 2.5px;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+.departure .time.delayed .delay>span {
+  color: red;
+}
+.departure .time.tooEarly .delay>span {
+  color: green;
+}
+.departure .time .when {
+
+}
+.departure .direction {
+  font-size: 1.15rem;
+  font-weight: 500;
+}
+.departure .right {
+  justify-self: flex-end;
+}
