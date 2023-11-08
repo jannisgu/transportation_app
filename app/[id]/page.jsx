@@ -1,4 +1,5 @@
 import Departures from "./components/Departures";
+import BackButton from "./components/BackButton";
 
 const getDepartures = async (id) => {
   const response = await fetch(
@@ -12,10 +13,16 @@ const Details = async ({ params }) => {
   const departuresObj = await getDepartures(params.id);
 
   return (
-    <>
-      <h2>Departures</h2>
+    <div className="departure-page">
+      <div className="departure-head">
+        <h1>{departuresObj.departures[0].stop.name}</h1>
+        <div className="flex">
+          <h2>Departures</h2>
+          <BackButton />
+        </div>
+      </div>
       <Departures departures={departuresObj.departures} />
-    </>
+    </div>
   );
 };
 
