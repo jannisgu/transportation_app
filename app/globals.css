@@ -1,6 +1,6 @@
 
 :root {
-  --foreground-clr: rgb(14, 14, 14);
+  --black: rgb(17, 17, 17);
   --background-clr: white;
   --main-clr: rgb(213, 1, 1);
   --gray: rgb(212, 212, 212);
@@ -56,9 +56,8 @@ section.white {
   justify-content: flex-start;
 }
 h2 {
-  font-size: 1.7rem;
-  margin-top: 20px;
-  margin-bottom: 30px;
+  font-size: 1.85rem;
+  margin-bottom: 50px;
 }
 
 .searchInput {
@@ -106,9 +105,8 @@ h2 {
   transition: all 0.3s ease-in-out;
 }
 .favs-toggle.active {
-  background-color: black;
+  background-color: var(--black);
   color: white;
-
 }
 .no-data{
   margin-top: 30px;
@@ -188,36 +186,44 @@ h2 {
   width: 100%;
   background-color: rgb(233, 233, 233);
 }
-.departure-head {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.departure-page h1 {
   width: 80%;
   max-width: 550px;
-  padding-top: 30px;
-  padding-bottom: 0px;
+  padding-block: 20px;
+  padding-inline: 10px;
+  margin-block: 20px;
+  margin-top: 20px;
+  margin-bottom: 0px;
   background-color: var(--main-clr);
   border-radius: 10px;
-  margin-block: 20px;
-}
-.departure-head h1 {
-  margin-top: 0px;
   font-size: 1.9rem;
-  max-width: 550px;
+  letter-spacing: 2.5px;
   text-align: center;
   color: white;
   cursor: default;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.267);
 }
-.departure-head .flex {
+.departure-head {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 0px 20px;
+  max-width: 550px;
+  padding: 15px 20px;
+}
+.departure-head>a:hover {
+  rotate: 45deg;
+  transition: all 0.3s ease;
+}
+.departure-head>a:active {
+  rotate: -720deg;
+  transition: all 10ms ease;
 }
 .departure-head h2 {
-  font-size: 1.5rem;
-  color: rgb(27, 27, 27);
+  font-size: 1.7rem;
+  letter-spacing: 2px;
+  margin: 0;
+  color: rgb(22, 22, 22);
   text-transform: uppercase;
   cursor: default;
 }
@@ -228,7 +234,7 @@ h2 {
   font-size: 1.05rem;
   font-weight: 600;
   text-transform: uppercase;
-  background-color: black;
+  background-color: var(--black);
   color: white;
   cursor: pointer;
 }
@@ -242,13 +248,21 @@ h2 {
 }
 .departure {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 20% 1fr 40%;
   justify-content: center;
   align-items: center;
   background-color: white;
   margin-bottom: 25px;
   padding: 12px 20px;
+  padding-bottom: 25px;
   border-radius: 10px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+.departure:hover,.departure:active {
+  scale: 1.006;
+  transition: all 0.3s ease;
 }
 .departure .time {
   display: grid;
@@ -286,13 +300,131 @@ h2 {
 .departure .time.tooEarly .delay>span {
   color: green;
 }
-.departure .time .when {
-
-}
 .departure .direction {
-  font-size: 1.15rem;
-  font-weight: 500;
+  margin-left: 15px;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+.departure .flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-inline: 10px;
+}
+.departure .hints {
+  align-self: center;
+  justify-self: center;
 }
 .departure .right {
+  display: grid;
+  justify-items: flex-end;
+  align-items: center;
   justify-self: flex-end;
+  gap: 7px;
+}
+.departure .line {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 9px;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+.departure .platform {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.9em;
+  font-weight: 600;
+}
+.departure .platform>div {
+  min-width: 15px;
+  font-size: 1rem;
+  text-align: end;
+}
+.departure .platform .changed {
+  color: red;
+}
+
+.departure .remarks {
+  grid-column: span 4;
+  margin-top: 6px;
+  display: flex;
+  justify-content: center;
+}
+.departure .remarks.warning {
+  display: grid;
+  justify-items: flex-start;
+  grid-template-columns: 70% 30%;
+}
+.departure .remarks.show::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  left: 0;
+  background-color: rgb(194, 194, 194);
+}
+.departure .remarks.show.warning::before {
+  background: rgb(255,0,0);
+  background: linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(255,0,0,1) 64.5%, rgba(194,194,194,1) 65%, rgba(194,194,194,1) 100%); 
+}
+.remarks .warnings,.remarks .hints {
+  z-index: 1;
+  padding: 10px 0px;
+  font-size: 0.8rem;
+}
+.remarks .warnings {
+  background-color: red;
+  margin: 0px 50px 0px 0px;
+  padding-left: 10px;
+}
+.remarks .hints {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+.remarks.warning .hints {
+  display: block;
+  align-self: flex-start;
+  justify-self: flex-start;
+}
+.remarks .warnings>div, .remarks .hints> div {
+  font-size: 0.75rem;
+  padding: 3px 0px;
+  z-index: 1;
+}
+.departure .remarks button {
+  position: absolute;
+  left: -20px;
+  width: calc(100% + 20px);
+  bottom: 0%;
+  border: 0px;
+  background-color: rgb(194, 194, 194);
+  font-weight: 700;
+  font-size: 1.01rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.departure .remarks button:hover {
+  background-color: rgb(159, 159, 159);
+  transition: all 0.3s ease;
+}
+.departure .remarks.warning button {
+  background-color: red;
+  color: white;
+  transition: all 0.3s ease;
+}
+.departure .remarks.warning button:hover {
+  background-color: var(--main-clr);
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.departure .remarks.show button {
+  background-color: rgb(144, 144, 144);
+  color: var(--black);
+  transition: all 0.3s ease;
 }

@@ -2,11 +2,19 @@
 
 import ProductIcon from "@/app/components/ProductIcon";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 const DepartureEntry = ({ departure }) => {
   const [showDetails, setShowDetails] = useState(false);
+  const [warning, setWarning] = useState(false);
+
+  useEffect(() => {
+    const hasWarning = remarks.some((remark) => remark.type === "warning");
+    if (hasWarning) {
+      setWarning(true);
+    }
+  }, [departure.remarks]);
 
   const dateFormat = { hour: "2-digit", minute: "2-digit" };
   const planned = new Date(departure.plannedWhen).toLocaleTimeString(
@@ -41,54 +49,60 @@ const DepartureEntry = ({ departure }) => {
         )}
       </div>
       <div className="direction">{direction}</div>
-      <div className="hints">
-        {remarks.map((remark, key) => {
-          if (remark.type == "hint") {
-            if (remark.code === "FK") {
-              return (
-                <div className="hint" key={key}>
-                  <Image
-                    src={"/bicycle.png"}
-                    alt="bicycle conveyance"
-                    width={20}
-                    height={20}
-                  />
-                </div>
-              );
-            } else if (remark.code === "WV") {
-              return (
-                <div className="hint" key={key}>
-                  <Image
-                    src={"/wifi.png"}
-                    alt="wifi available"
-                    width={20}
-                    height={20}
-                  />
-                </div>
-              );
-            }
-          }
-        })}
-      </div>
-      <div className="right">
-        <div className="line">
-          <ProductIcon type={product} />
-          {line}
-        </div>
-        {plannedPlatform && (
-          <div className="platform">
-            Platform:
-            <div
-              className={
-                platform && platform !== plannedPlatform ? "changed" : "planned"
+      <div className="flex">
+          <div className="hints">
+            {remarks.map((remark, key) => {
+              if (remark.type === "hint") {
+                if (remark.code === "FK") {
+                  return (
+                    <div className="hint" key={key}>
+                      <Image
+                        src={"/bicycle.png"}
+                        alt="bicycle conveyance"
+                        width={20}
+                        height={20}
+                      />
+                    </div>
+                  );
+                } else if (remark.code === "WV") {
+                  return (
+                    <div className="hint" key={key}>
+                      <Image
+                        src={"/wifi.png"}
+                        alt="wifi available"
+                        width={20}
+                        height={20}
+                      />
+                    </div>
+                  );
+                }
               }
-            >
-              {platform !== plannedPlatform ? platform : plannedPlatform}
-            </div>
+            })}
           </div>
-        )}
+          <div className="right">
+            <div className="line">
+              <ProductIcon type={product} />
+              {line}
+            </div>
+            {plannedPlatform && (
+              <div className="platform">
+                Platform:
+                <div
+                  className={
+                    platform && platform !== plannedPlatform ? "changed" : "planned"
+                  }
+                >
+                  {platform !== plannedPlatform ? platform : plannedPlatform}
+                </div>
+              </div>
+            )}
+          </div>
       </div>
-      <div className={`remarks ${showDetails ? "show" : ""}`}>
+      <div
+        className={`remarks ${showDetails ? "show" : ""} ${
+          warning ? "warning" : ""
+        }`}
+      >
         <button onClick={() => setShowDetails((prev) => !prev)}>
           <motion.div
             initial="collpased"
@@ -100,19 +114,21 @@ const DepartureEntry = ({ departure }) => {
         </button>
         {showDetails && (
           <>
-            <div className="warnings">
-              <h4>Warnings</h4>
-              {remarks.map((remark, key) => {
-                if (remark.type === "warning") {
-                  return (
-                    <div
-                      key={key}
-                      dangerouslySetInnerHTML={{ __html: remark.text }}
-                    ></div>
-                  );
-                }
-              })}
-            </div>
+            {warning && (
+              <div className="warnings">
+                <h4>Warnings</h4>
+                {remarks.map((remark, key) => {
+                  if (remark.type === "warning") {
+                    return (
+                      <div
+                        key={key}
+                        dangerouslySetInnerHTML={{ __html: remark.text }}
+                      ></div>
+                    );
+                  }
+                })}
+              </div>
+            )}
             <div className="hints">
               <h4>Hints</h4>
               {remarks.map((remark, key) => {
