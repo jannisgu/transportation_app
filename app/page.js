@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import ListOfStops from "./components/ListOfStops";
 import SearchInput from "./components/SearchInput";
 import FavBtn from "./components/FavBtn";
+import Image from "next/image";
 
 export default function Home() {
   // hook to handle state of the current stops pulled from the API based on the input
@@ -64,6 +65,7 @@ export default function Home() {
   return (
     <>
       <section className={`mainClr ${stops.length == 0 ? "full" : ""}`}>
+        <Image src={"/brandenburger_tor.jpg"} alt="rails" fill={true} className="rails-bg"/>
         <h2>
           Public Transportation System <br />
           of Berlin & Brandenburg

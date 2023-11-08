@@ -130,7 +130,7 @@ const DepartureEntry = ({ departure }) => {
               </div>
             )}
             <div className="hints">
-              <h4>Hints</h4>
+              <h4>Details</h4>
               {remarks.map((remark, key) => {
                 if (remark.type === "hint") {
                   return <div key={key}>{remark.text}</div>;

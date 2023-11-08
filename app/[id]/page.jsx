@@ -16,10 +16,14 @@ const Details = async ({ params }) => {
 
   return (
     <div className="departure-page">
-      <h1>{departuresObj && departuresObj.departures[0]?.stop?.name}</h1>
+      <h1>
+        {!departuresObj || departuresObj.departures.length === 0
+          ? "No Departure Data!"
+          : departuresObj.departures[0]?.stop?.name}
+      </h1>
       <div className="departure-head">
         <h2>Departures</h2>
-        <a href={`${params.id}`} >
+        <a href={`${params.id}`}>
           <Image src={"/reload.png"} alt="reload" width={30} height={30} />
         </a>
         <BackButton />

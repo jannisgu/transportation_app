@@ -38,6 +38,7 @@ section {
   width: 100%;
   min-height: 250px;
   overflow: hidden;
+  position: relative;
   transition: all 0.3s ease;
 }
 section.mainClr {
@@ -46,8 +47,18 @@ section.mainClr {
   background-color: var(--main-clr);
   transition: all 0.3s ease;
 }
+section>.rails-bg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  min-height: 100%;
+  min-width: 100%;
+  opacity: 0.07;
+
+  object-fit: cover;
+}
 section.full {
-  height: 80vh;
+  height: 75vh;
   transition: all 0.3s ease;
 }
 section.white {
@@ -55,9 +66,10 @@ section.white {
   color: var(--foreground-clr);
   justify-content: flex-start;
 }
-h2 {
+section.mainClr h2 {
   font-size: 1.85rem;
   margin-bottom: 50px;
+  text-align: center;
 }
 
 .searchInput {
@@ -75,6 +87,11 @@ h2 {
   border-radius: 50px;
   font-weight: 500;
   font-size: 1.1rem;
+  border: 0px;
+}
+.searchInput>input:focus, .searchInput>input.active {
+  outline: none !important;
+  border: 3px solid var(--black);
 }
 .searchInput>.img {
   position: absolute;
@@ -312,6 +329,7 @@ h2 {
   padding-inline: 10px;
 }
 .departure .hints {
+  margin-left: 25px;
   align-self: center;
   justify-self: center;
 }
@@ -427,4 +445,44 @@ h2 {
   background-color: rgb(144, 144, 144);
   color: var(--black);
   transition: all 0.3s ease;
+}
+
+@media (max-width: 700px) {
+  section.mainClr h2 {
+    font-size: 1.6rem;
+    padding-inline: 20px;
+
+  }
+  .departure-page h1 {
+    font-size: 1.3rem;
+  }
+  .departure-head {
+    width: 85%;
+    gap: 25px;
+    flex-wrap: wrap-reverse;
+  }
+  .departure-head h2 {
+    font-size: 1.4rem;
+    margin-bottom: 6px;
+    font-weight: 700;
+  }
+  .departure {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+  .departure .direction {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+    order: -1;
+  }
+  .departure .hints {
+    margin-right: 15px;
+  }
+  .back-to-search {
+    width: 100%;
+  }
 }
