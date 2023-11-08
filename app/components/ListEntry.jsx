@@ -2,35 +2,36 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import ProductIcon from "./ProductIcon";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 
-const ListEntry = ({
-  productTypes,
-  stop,
-  favorites,
-  updateFavorites,
-}) => {
+const ListEntry = ({ productTypes, stop, favorites, updateFavorites }) => {
   const [favorite, setFavorite] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     if (favorites.includes(parseInt(stop.id))) {
       setFavorite(true);
     }
-  }, [favorites]);
+  }, []);
 
   const handleFavClick = () => {
     if (!favorite) {
-      console.log("test!");
-      updateFavorites(parseInt(stop.id), true);
+      updateFavorites(parseInt(stop.id), (true));
       setFavorite(true);
     } else {
-      console.log("test");
-      updateFavorites(parseInt(stop.id), false);
+      updateFavorites(parseInt(stop.id), (false));
       setFavorite(false);
     }
   };
 
+  const showDetails = (e) => {
+    if (e.target.className === "name" || e.target.nodeName === "LI") {
+      router.push(stop.id);
+    }
+  };
+
   return (
-    <motion.li>
+    <motion.li onClick={showDetails}>
       <div className="left">
         <button className="star-btn" onClick={handleFavClick}>
           <Image
