@@ -23,7 +23,7 @@ ul {
 } */
 
 body {
-  color: var(--foreground-clr);
+  color: var(--black);
   background: var(--background-clr);
 }
 main {
@@ -63,7 +63,7 @@ section.full {
 }
 section.white {
   background-color: var(--background-clr);
-  color: var(--foreground-clr);
+  color: var(--black);
   justify-content: flex-start;
 }
 section.mainClr h2 {
