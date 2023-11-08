@@ -1,95 +1,61 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+"use client";
+
+import { useState } from "react";
+import ListOfStops from "./components/ListOfStops";
+import SearchInput from "./components/SearchInput";
+import FavBtn from "./components/FavBtn";
 
 export default function Home() {
+  // hook to handle state of the current stops pulled from the API based on the input
+  const [stops, setStops] = useState([]);
+  const [searchText, setSeachText] = useState("");
+
+  // gets called if search input changes and updates the state of the  stops
+  const getStops = async (searchText) => {
+    if (searchText.length == 0) {
+      setStops([]); // set stops to empty array if the input is blank
+      return;
+    }
+
+    const response = await fetch(
+      `https://v6.vbb.transport.rest/locations?poi=false&addresses=false&query=${searchText}`
+    );
+    const newStops = await response.json();
+    setStops(newStops);
+  };
+
+  const getFavorites = async (off = false) => {
+    if (off) {
+      setStops([]);
+    }
+    const favoriteData = localStorage.getItem("favorites");
+    if (favoriteData !== null) {
+      const favs = JSON.parse(favoriteData);
+      for (let i = 0; i < favs.length; i++) {
+        const query = String(favs[i]);
+        const response = await fetch(
+          `https://v6.vbb.transport.rest/stops/${query}`
+        );
+        const newStops = await response.json();
+        console.log("newstops:", newStops);
+        setStops(newStops);
+      }
+    }
+  };
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+    <>
+      <section className={`mainClr ${stops.length == 0 ? "full" : ""}`}>
+        <h2>
+          Public Transportation System <br />
+          of Berlin & Brandenburg
+        </h2>
+        <SearchInput getStops={getStops} searchText={searchText} setSeachText={setSeachText} />
+      </section>
+      <section className="white">
+        <FavBtn getFavorites={getFavorites} />
+        <ListOfStops stops={stops} searchText={searchText} />
+      </section>
+    </>
+  );
 }
