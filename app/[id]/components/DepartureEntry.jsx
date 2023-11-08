@@ -1,7 +1,13 @@
-import ProductIcon from "@/app/components/ProductIcon";
+"use client";
 
+import ProductIcon from "@/app/components/ProductIcon";
+import Image from "next/image";
+import { useState } from "react";
+import { motion } from "framer-motion";
 
 const DepartureEntry = ({ departure }) => {
+  const [showDetails, setShowDetails] = useState(false);
+
   const dateFormat = { hour: "2-digit", minute: "2-digit" };
   const planned = new Date(departure.plannedWhen).toLocaleTimeString(
     "de",
@@ -16,6 +22,7 @@ const DepartureEntry = ({ departure }) => {
   const plannedPlatform = departure.plannedPlatform;
   const platform = departure.platform;
   const remarks = departure.remarks;
+
   return (
     <li className="departure">
       <div
@@ -34,6 +41,35 @@ const DepartureEntry = ({ departure }) => {
         )}
       </div>
       <div className="direction">{direction}</div>
+      <div className="hints">
+        {remarks.map((remark, key) => {
+          if (remark.type == "hint") {
+            if (remark.code === "FK") {
+              return (
+                <div className="hint" key={key}>
+                  <Image
+                    src={"/bicycle.png"}
+                    alt="bicycle conveyance"
+                    width={20}
+                    height={20}
+                  />
+                </div>
+              );
+            } else if (remark.code === "WV") {
+              return (
+                <div className="hint" key={key}>
+                  <Image
+                    src={"/wifi.png"}
+                    alt="wifi available"
+                    width={20}
+                    height={20}
+                  />
+                </div>
+              );
+            }
+          }
+        })}
+      </div>
       <div className="right">
         <div className="line">
           <ProductIcon type={product} />
@@ -52,22 +88,41 @@ const DepartureEntry = ({ departure }) => {
           </div>
         )}
       </div>
-      <div className="remarks">
-        {remarks.map((remark, key) => {
-          console.log(remark);
-          if (remark.type == "hint") {
-            return (
-              <div className="hint" key={key}>
-                {remark.text}
-              </div>
-            );
-          }
-          return (
-            <div className="warning" key={key}>
-              {remark.text}
+      <div className={`remarks ${showDetails ? "show" : ""}`}>
+        <button onClick={() => setShowDetails((prev) => !prev)}>
+          <motion.div
+            initial="collpased"
+            animate={showDetails ? "expanded" : "collapsed"}
+            variants={{ collapsed: { rotate: 0 }, expanded: { rotate: 180 } }}
+          >
+            &darr;
+          </motion.div>
+        </button>
+        {showDetails && (
+          <>
+            <div className="warnings">
+              <h4>Warnings</h4>
+              {remarks.map((remark, key) => {
+                if (remark.type === "warning") {
+                  return (
+                    <div
+                      key={key}
+                      dangerouslySetInnerHTML={{ __html: remark.text }}
+                    ></div>
+                  );
+                }
+              })}
             </div>
-          );
-        })}
+            <div className="hints">
+              <h4>Hints</h4>
+              {remarks.map((remark, key) => {
+                if (remark.type === "hint") {
+                  return <div key={key}>{remark.text}</div>;
+                }
+              })}
+            </div>
+          </>
+        )}
       </div>
     </li>
   );
