@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { useState } from "react";
 
-const FavBtn = ({ getFavorites }) => {
+const FavBtn = ({ getFavorites, searchText }) => {
   const [active, setActive] = useState(false);
 
   const handleFavBtn = () => {
@@ -14,10 +14,13 @@ const FavBtn = ({ getFavorites }) => {
     }
   };
 
+  const style = searchText !== "" ? { marginTop: "20px" } : {};
+
   return (
     <button
       className={`favs-toggle ${active && "active"}`}
       onClick={handleFavBtn}
+      style={style}
     >
       Favorites
       <Image

@@ -57,6 +57,7 @@ section.white {
 }
 h2 {
   font-size: 1.7rem;
+  margin-top: 20px;
   margin-bottom: 30px;
 }
 
@@ -84,11 +85,11 @@ h2 {
 }
 
 .favs-toggle {
-  border: 1px solid var(--gray);
-  box-shadow: 2px 2px 5px var(--gray);
+  border: 0px solid var(--gray);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.438);
   border-radius: 10px;
-  background-color: transparent;
-  margin-top: 25px;
+  background-color: white;
+  margin-top: 35px;
   padding: 7px 12px;
   display: flex;
   justify-content: center;
@@ -107,11 +108,18 @@ h2 {
 .favs-toggle.active {
   background-color: black;
   color: white;
+
 }
+.no-data{
+  margin-top: 30px;
+  font-size: 1.2rem;
+  font-weight: 500;
+} 
 .searchResults {
-  margin-top: 50px;
+  margin-top: 40px;
   width: 80%;
-  max-width: 550px;  
+  max-width: 550px;
+  margin-bottom: 50px;
 }
 .searchResults>li {
   display: flex;
@@ -123,6 +131,7 @@ h2 {
   margin-bottom: 15px;
   box-shadow: 5px 5px 5px rgba(121, 121, 121, 0.542);
   transition: all 0.3s ease-in-out;
+  cursor: pointer;
 }
 .searchResults>li:hover {
   scale: 1.01;
