@@ -399,7 +399,7 @@ section.main-clr h2 {
   padding-inline: 10px;
 }
 .departure .hints {
-  margin-left: 25px;
+
   align-self: center;
   justify-self: center;
 }
@@ -539,12 +539,15 @@ section.main-clr h2 {
     font-size: 1.2rem;
     order: -1;
   }
-  .departure .more-details button {
-    width: calc(100% + 40px);
+  .flex>.hints {
+    margin-right: 10px;
+  }
+  .departure .more-details {
+    min-width: calc(100% + 40px);
     translate: 20px;
   }
-  .departure .hints {
-    margin-right: 15px;
+  .departure .more-details button {
+    width: calc(100% + 40px);
   }
   .back-to-search {
     width: 100%;
