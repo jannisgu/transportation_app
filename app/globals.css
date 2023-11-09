@@ -1,9 +1,10 @@
 
 :root {
   --black: rgb(17, 17, 17);
-  --background-clr: white;
   --main-clr: rgb(213, 1, 1);
+  --default-bg: rgb(233, 233, 233);
   --gray: rgb(212, 212, 212);
+  --default-transition: all 0.3s ease-in-out; 
 }
 
 * {
@@ -24,10 +25,30 @@ ul {
 
 body {
   color: var(--black);
-  background: var(--background-clr);
+  background: var(--default-bg);
 }
 main {
   height: 100vh;
+}
+
+.loading-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+}
+.spinner {
+  border-top: 4px solid black;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 section {
@@ -39,18 +60,19 @@ section {
   min-height: 250px;
   overflow: hidden;
   position: relative;
-  transition: all 0.3s ease;
+  transition: var(--default-transition);
 }
 section.mainClr {
   height: 250px;
   color: white;
   background-color: var(--main-clr);
-  transition: all 0.3s ease;
+  transition: var(--default-transition);
 }
 section>.rails-bg {
   position: absolute;
   bottom: 0;
   left: 0;
+  z-index: 0;
   min-height: 100%;
   min-width: 100%;
   opacity: 0.07;
@@ -59,7 +81,7 @@ section>.rails-bg {
 }
 section.full {
   height: 75vh;
-  transition: all 0.3s ease;
+  transition: var(--default-transition);
 }
 section.white {
   background-color: var(--background-clr);
@@ -70,12 +92,15 @@ section.mainClr h2 {
   font-size: 1.85rem;
   margin-bottom: 50px;
   text-align: center;
+  z-index: 1;
+  cursor: default;
 }
 
 .searchInput {
   width: 60%;
   max-width: 350px;
   position: relative;
+  z-index: 1;
 }
 .searchInput>input {
   width: 100%;
@@ -115,11 +140,11 @@ section.mainClr h2 {
   text-transform: uppercase;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease-in-out;
+  transition: var(--default-transition);
 }
 .favs-toggle:hover {
   scale: 1.05;
-  transition: all 0.3s ease-in-out;
+  transition: var(--default-transition);
 }
 .favs-toggle.active {
   background-color: var(--black);
@@ -145,12 +170,12 @@ section.mainClr h2 {
   border: 1px solid gray;
   margin-bottom: 15px;
   box-shadow: 5px 5px 5px rgba(121, 121, 121, 0.542);
-  transition: all 0.3s ease-in-out;
+  transition: var(--default-transition);
   cursor: pointer;
 }
 .searchResults>li:hover {
   scale: 1.01;
-  transition: all 0.3s ease-in-out;
+  transition: var(--default-transition);
 }
 .left {
   display: flex;
@@ -177,13 +202,13 @@ section.mainClr h2 {
   justify-content: center;
   align-items: center;
   padding: 2px 3px;
-  transition: all 0.3s ease-in-out;
+  transition: var(--default-transition);
   overflow: hidden;
   cursor: pointer;
 }
 .product.expanded {
   background-color: var(--gray);
-  transition: all 0.3s ease-in-out;
+  transition: var(--default-transition);
   padding: 2px 4px;
   border-radius: 5px;
 } 
@@ -228,14 +253,20 @@ section.mainClr h2 {
   max-width: 550px;
   padding: 15px 20px;
 }
-.departure-head>a:hover {
+/* reload button animation */
+.departure-head>a {
+  transition: var(--default-transition);
+}
+.departure-head>a:hover { 
   rotate: 45deg;
-  transition: all 0.3s ease;
+  transition: var(--default-transition);
 }
 .departure-head>a:active {
+  transition: var(--default-transition);
   rotate: -720deg;
   transition: all 10ms ease;
 }
+
 .departure-head h2 {
   font-size: 1.7rem;
   letter-spacing: 2px;
@@ -254,11 +285,15 @@ section.mainClr h2 {
   background-color: var(--black);
   color: white;
   cursor: pointer;
+  transition: var(--default-transition);
 }
 .back-to-search:hover {
   color: var(--main-clr);
+  scale: 1.02;
+  transition: var(--default-transition);
 }
 
+/* styling for list of departures */
 .departures {
   width: 80%;
   max-width: 550px;
@@ -273,13 +308,13 @@ section.mainClr h2 {
   padding: 12px 20px;
   padding-bottom: 25px;
   border-radius: 10px;
-  transition: all 0.3s ease;
+  transition: var(--default-transition);
   position: relative;
   overflow: hidden;
 }
 .departure:hover,.departure:active {
   scale: 1.006;
-  transition: all 0.3s ease;
+  transition: var(--default-transition);
 }
 .departure .time {
   display: grid;
@@ -305,6 +340,7 @@ section.mainClr h2 {
   font-weight: 400;
   color: rgb(146, 146, 146);
   grid-column: span 2;
+  margin-bottom: 4px;
 }
 .departure .time .delay>span {
   margin-inline: 2.5px;
@@ -321,6 +357,7 @@ section.mainClr h2 {
   margin-left: 15px;
   font-size: 1.3rem;
   font-weight: 700;
+  overflow-wrap: break-word;
 }
 .departure .flex {
   display: flex;
@@ -421,30 +458,31 @@ section.mainClr h2 {
   bottom: 0%;
   border: 0px;
   background-color: rgb(194, 194, 194);
+  color: white;
   font-weight: 700;
   font-size: 1.01rem;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: var(--default-transition);
 }
 .departure .remarks button:hover {
   background-color: rgb(159, 159, 159);
-  transition: all 0.3s ease;
+  transition: var(--default-transition);
 }
 .departure .remarks.warning button {
   background-color: red;
   color: white;
-  transition: all 0.3s ease;
+  transition: var(--default-transition);
 }
 .departure .remarks.warning button:hover {
   background-color: var(--main-clr);
   color: white;
-  transition: all 0.3s ease;
+  transition: var(--default-transition);
 }
 
 .departure .remarks.show button {
   background-color: rgb(144, 144, 144);
   color: var(--black);
-  transition: all 0.3s ease;
+  transition: var(--default-transition);
 }
 
 @media (max-width: 700px) {
