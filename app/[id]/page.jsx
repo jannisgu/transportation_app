@@ -1,6 +1,5 @@
 import Departures from "./components/Departures";
-import BackButton from "./components/BackButton";
-import Image from "next/image";
+import DepartureHead from "./components/DepartureHead";
 
 const getDepartures = async (id) => {
   const response = await fetch(
@@ -21,13 +20,7 @@ const Details = async ({ params }) => {
           ? "No Departure Data!"
           : departuresObj.departures[0]?.stop?.name}
       </h1>
-      <div className="departure-head">
-        <h2>Departures</h2>
-        <a href={`${params.id}`}>
-          <Image src={"/reload.png"} alt="reload" width={30} height={30} />
-        </a>
-        <BackButton />
-      </div>
+      <DepartureHead id={params.id} />
       <Departures departures={departuresObj && departuresObj.departures} />
     </div>
   );

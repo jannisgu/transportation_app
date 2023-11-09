@@ -1,21 +1,12 @@
 "use client";
 
 import ProductIcon from "@/app/components/ProductIcon";
-import Image from "next/image";
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import Loading from "@/app/loading";
+import { Suspense } from "react";
+import Remarks from "./Remarks";
+import MoreDetails from "./MoreDetails";
 
 const DepartureEntry = ({ departure }) => {
-  const [showDetails, setShowDetails] = useState(false);
-  const [warning, setWarning] = useState(false);
-
-  useEffect(() => {
-    const hasWarning = remarks.some((remark) => remark.type === "warning");
-    if (hasWarning) {
-      setWarning(true);
-    }
-  }, [departure.remarks]);
-
   const dateFormat = { hour: "2-digit", minute: "2-digit" };
   const planned = new Date(departure.plannedWhen).toLocaleTimeString(
     "de",
@@ -32,52 +23,29 @@ const DepartureEntry = ({ departure }) => {
   const remarks = departure.remarks;
 
   return (
-    <li className="departure">
-      <div
-        className={`time ${delay > 0 ? "delayed" : ""} ${
-          delay < 0 ? "tooEarly" : ""
-        }`}
+    <Suspense fallback={<Loading />}>
+      <li
+        className="departure"
       >
-        <div className="planned">{planned}</div>
-        {delayBool && (
-          <>
-            <div className="when">{when}</div>
-            <div className="delay">
-              delayed by <span>{delay / 60}</span> min
-            </div>
-          </>
-        )}
-      </div>
-      <div className="direction">{direction}</div>
-      <div className="flex">
+        <div
+          className={`time ${delay > 0 ? "delayed" : ""} ${
+            delay < 0 ? "tooEarly" : ""
+          }`}
+        >
+          <div className="planned">{planned}</div>
+          {delayBool && (
+            <>
+              <div className="when">{when}</div>
+              <div className="delay">
+                delayed by <span>{delay / 60}</span> min
+              </div>
+            </>
+          )}
+        </div>
+        <div className="direction">{direction}</div>
+        <div className="flex">
           <div className="hints">
-            {remarks.map((remark, key) => {
-              if (remark.type === "hint") {
-                if (remark.code === "FK") {
-                  return (
-                    <div className="hint" key={key}>
-                      <Image
-                        src={"/bicycle.png"}
-                        alt="bicycle conveyance"
-                        width={20}
-                        height={20}
-                      />
-                    </div>
-                  );
-                } else if (remark.code === "WV") {
-                  return (
-                    <div className="hint" key={key}>
-                      <Image
-                        src={"/wifi.png"}
-                        alt="wifi available"
-                        width={20}
-                        height={20}
-                      />
-                    </div>
-                  );
-                }
-              }
-            })}
+            <Remarks remarks={remarks} type={"hints"} details={false} />
           </div>
           <div className="right">
             <div className="line">
@@ -89,7 +57,9 @@ const DepartureEntry = ({ departure }) => {
                 Platform:
                 <div
                   className={
-                    platform && platform !== plannedPlatform ? "changed" : "planned"
+                    platform && platform !== plannedPlatform
+                      ? "changed"
+                      : "planned"
                   }
                 >
                   {platform !== plannedPlatform ? platform : plannedPlatform}
@@ -97,50 +67,10 @@ const DepartureEntry = ({ departure }) => {
               </div>
             )}
           </div>
-      </div>
-      <div
-        className={`remarks ${showDetails ? "show" : ""} ${
-          warning ? "warning" : ""
-        }`}
-      >
-        <button onClick={() => setShowDetails((prev) => !prev)}>
-          <motion.div
-            initial="collpased"
-            animate={showDetails ? "expanded" : "collapsed"}
-            variants={{ collapsed: { rotate: 0 }, expanded: { rotate: 180 } }}
-          >
-            &darr;
-          </motion.div>
-        </button>
-        {showDetails && (
-          <>
-            {warning && (
-              <div className="warnings">
-                <h4>Warnings</h4>
-                {remarks.map((remark, key) => {
-                  if (remark.type === "warning") {
-                    return (
-                      <div
-                        key={key}
-                        dangerouslySetInnerHTML={{ __html: remark.text }}
-                      ></div>
-                    );
-                  }
-                })}
-              </div>
-            )}
-            <div className="hints">
-              <h4>Details</h4>
-              {remarks.map((remark, key) => {
-                if (remark.type === "hint") {
-                  return <div key={key}>{remark.text}</div>;
-                }
-              })}
-            </div>
-          </>
-        )}
-      </div>
-    </li>
+        </div>
+        <MoreDetails remarks={remarks} />
+      </li>
+    </Suspense>
   );
 };
 
