@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 
 const ProductIcon = ({ type }) => {
+  // save state whether to show the name of the transport vehicle
   const [showTitle, setShowTitle] = useState(false);
 
   return (

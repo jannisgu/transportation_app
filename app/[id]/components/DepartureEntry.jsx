@@ -1,5 +1,3 @@
-"use client";
-
 import ProductIcon from "@/app/components/ProductIcon";
 import Loading from "@/app/loading";
 import { Suspense } from "react";
@@ -7,6 +5,7 @@ import Remarks from "./Remarks";
 import MoreDetails from "./MoreDetails";
 
 const DepartureEntry = ({ departure }) => {
+  // set all the necessary data and adapt the times
   const dateFormat = { hour: "2-digit", minute: "2-digit" };
   const planned = new Date(departure.plannedWhen).toLocaleTimeString(
     "de",
@@ -24,9 +23,7 @@ const DepartureEntry = ({ departure }) => {
 
   return (
     <Suspense fallback={<Loading />}>
-      <li
-        className="departure"
-      >
+      <li className="departure">
         <div
           className={`time ${delay > 0 ? "delayed" : ""} ${
             delay < 0 ? "tooEarly" : ""

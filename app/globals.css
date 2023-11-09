@@ -1,4 +1,5 @@
 
+/* GLOBAL STYLES*/
 :root {
   --black: rgb(17, 17, 17);
   --main-clr: rgb(213, 1, 1);
@@ -16,12 +17,6 @@
 ul {
   list-style: none;
 }
-/* @media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-clr: white;
-    --background-clr: black;
-  }
-} */
 
 body {
   color: var(--black);
@@ -51,6 +46,17 @@ main {
   }
 }
 
+
+
+
+
+
+
+/* 
+
+FRONT/SEARCH-PAGE STYLING
+*/
+
 section {
   display: flex;
   flex-direction: column;
@@ -62,7 +68,7 @@ section {
   position: relative;
   transition: var(--default-transition);
 }
-section.mainClr {
+section.main-clr {
   height: 250px;
   color: white;
   background-color: var(--main-clr);
@@ -76,7 +82,6 @@ section>.rails-bg {
   min-height: 100%;
   min-width: 100%;
   opacity: 0.07;
-
   object-fit: cover;
 }
 section.full {
@@ -88,7 +93,7 @@ section.white {
   color: var(--black);
   justify-content: flex-start;
 }
-section.mainClr h2 {
+section.main-clr h2 {
   font-size: 1.85rem;
   margin-bottom: 50px;
   text-align: center;
@@ -96,13 +101,13 @@ section.mainClr h2 {
   cursor: default;
 }
 
-.searchInput {
+.search-input {
   width: 60%;
   max-width: 350px;
   position: relative;
   z-index: 1;
 }
-.searchInput>input {
+.search-input>input {
   width: 100%;
   height: 100%;
   line-height: 2rem;
@@ -114,11 +119,11 @@ section.mainClr h2 {
   font-size: 1.1rem;
   border: 0px;
 }
-.searchInput>input:focus, .searchInput>input.active {
+.search-input>input:focus, .search-input>input.active {
   outline: none !important;
   border: 3px solid var(--black);
 }
-.searchInput>.img {
+.search-input>.img {
   position: absolute;
   transform: translate(-50%,-50%);
   top: 50%;
@@ -154,26 +159,32 @@ section.mainClr h2 {
   margin-top: 30px;
   font-size: 1.2rem;
   font-weight: 500;
-} 
-.searchResults {
+}
+
+
+
+/* STOP-LIST DISPLAY STYLING */
+
+.search-results {
   margin-top: 40px;
   width: 80%;
   max-width: 550px;
   margin-bottom: 50px;
 }
-.searchResults>li {
+.search-results>li {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 12px 20px;
+  margin-bottom: 15px;
   border-radius: 10px;
   border: 1px solid gray;
-  margin-bottom: 15px;
+  background-color: white;
   box-shadow: 5px 5px 5px rgba(121, 121, 121, 0.542);
   transition: var(--default-transition);
   cursor: pointer;
 }
-.searchResults>li:hover {
+.search-results>li:hover {
   scale: 1.01;
   transition: var(--default-transition);
 }
@@ -186,6 +197,9 @@ section.mainClr h2 {
   border: 0px;
   background-color: transparent;
   cursor: pointer;
+}
+.star-btn.head {
+  padding-inline: 10px;
 }
 .name {
   margin-inline: 15px;
@@ -220,6 +234,16 @@ section.mainClr h2 {
   margin-left: 5px;
 }
 
+
+
+
+
+
+
+
+
+
+/* DEPARTURES PAGE STYLING */
 .departure-page {
   display: flex;
   justify-content: flex-start;
@@ -275,7 +299,8 @@ section.mainClr h2 {
   text-transform: uppercase;
   cursor: default;
 }
-.back-to-search {
+/* back to search BUTTON */
+.back-to-search { 
   padding: 8px 12px;
   border: 0px;
   border-radius: 8px;
@@ -293,7 +318,10 @@ section.mainClr h2 {
   transition: var(--default-transition);
 }
 
-/* styling for list of departures */
+
+
+/* DEPARTURES LIST STYLING */
+
 .departures {
   width: 80%;
   max-width: 550px;
@@ -401,61 +429,43 @@ section.mainClr h2 {
   color: red;
 }
 
-.departure .remarks {
+.departure .more-details {
   grid-column: span 4;
-  margin-top: 6px;
+  margin-top: 10px;
+  width: calc(100% + 40px);
+  transform: translate(-20px,0px);
   display: flex;
   justify-content: center;
-}
-.departure .remarks.warning {
-  display: grid;
-  justify-items: flex-start;
-  grid-template-columns: 70% 30%;
-}
-.departure .remarks.show::before {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  left: 0;
+  flex-direction: column;
+  align-items: center;
   background-color: rgb(194, 194, 194);
 }
-.departure .remarks.show.warning::before {
-  background: rgb(255,0,0);
-  background: linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(255,0,0,1) 64.5%, rgba(194,194,194,1) 65%, rgba(194,194,194,1) 100%); 
-}
-.remarks .warnings,.remarks .hints {
+.more-details .warnings,.more-details .hints {
   z-index: 1;
-  padding: 10px 0px;
+  padding: 15px 25px;
   font-size: 0.8rem;
 }
-.remarks .warnings {
+.more-details .warnings {
   background-color: red;
-  margin: 0px 50px 0px 0px;
-  padding-left: 10px;
 }
-.remarks .hints {
+.more-details .hints {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 20px;
 }
-.remarks.warning .hints {
-  display: block;
-  align-self: flex-start;
-  justify-self: flex-start;
-}
-.remarks .warnings>div, .remarks .hints> div {
+
+.more-details .warnings>div, .more-details .hints> div {
   font-size: 0.75rem;
   padding: 3px 0px;
   z-index: 1;
 }
-.departure .remarks button {
+.departure .more-details button {
   position: absolute;
   left: -20px;
   width: calc(100% + 20px);
-  bottom: 0%;
+  height: 25px;
+  top: 100%;
   border: 0px;
   background-color: rgb(194, 194, 194);
   color: white;
@@ -464,29 +474,34 @@ section.mainClr h2 {
   cursor: pointer;
   transition: var(--default-transition);
 }
-.departure .remarks button:hover {
+.departure .more-details button:hover {
   background-color: rgb(159, 159, 159);
   transition: var(--default-transition);
 }
-.departure .remarks.warning button {
+.departure .more-details.warning button {
   background-color: red;
   color: white;
   transition: var(--default-transition);
 }
-.departure .remarks.warning button:hover {
+.departure .more-details.warning.show button {
   background-color: var(--main-clr);
   color: white;
   transition: var(--default-transition);
 }
+.departure .more-details.warning.show button:hover {
+  background-color: rgb(159, 159, 159);
+  color: white;
+  transition: var(--default-transition);
+}
 
-.departure .remarks.show button {
+.departure .more-details.show button {
   background-color: rgb(144, 144, 144);
   color: var(--black);
   transition: var(--default-transition);
 }
 
 @media (max-width: 700px) {
-  section.mainClr h2 {
+  section.main-clr h2 {
     font-size: 1.6rem;
     padding-inline: 20px;
 

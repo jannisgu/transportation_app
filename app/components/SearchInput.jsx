@@ -3,12 +3,8 @@
 import Image from "next/image";
 
 const SearchInput = ({ searchText, setSeachText }) => {
-  const handleInput = (input) => {
-    setSeachText(input);
-  };
-
   return (
-    <div className="searchInput">
+    <div className="search-input">
       <Image
         src={"/search.png"}
         alt="search"
@@ -20,7 +16,7 @@ const SearchInput = ({ searchText, setSeachText }) => {
         type="text"
         value={searchText}
         placeholder="Search for a stop"
-        onChange={(e) => handleInput(e.target.value)}
+        onChange={(e) => setSeachText(e.target.value)}
       />
     </div>
   );

@@ -8,6 +8,7 @@ const MoreDetails = ({ remarks }) => {
   const [showDetails, setShowDetails] = useState(false);
   const [warning, setWarning] = useState(false);
 
+  // change button color to red to indicate that a warning is existing
   useEffect(() => {
     const hasWarning = remarks.some((remark) => remark.type === "warning");
     if (hasWarning) {

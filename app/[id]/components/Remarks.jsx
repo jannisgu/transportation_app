@@ -3,14 +3,17 @@
 import Image from "next/image";
 
 const Remarks = ({ remarks, type, details = true }) => {
+  // handle remarks based on type and position
   if (type === "hints") {
     if (details) {
+      // if hints and position is inside of "MoreDetails"
       return remarks.map((remark, key) => {
         if (remark.type === "hint") {
           return <div key={key}>{remark.text}</div>;
         }
       });
     } else {
+      // if position is on front
       return remarks.map((remark, key) => {
         if (remark.type === "hint") {
           if (remark.code === "FK") {

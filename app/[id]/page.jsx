@@ -1,6 +1,7 @@
 import Departures from "./components/Departures";
 import DepartureHead from "./components/DepartureHead";
 
+// fetch departure data on server
 const getDepartures = async (id) => {
   const response = await fetch(
     `https://v6.vbb.transport.rest/stops/${id}/departures?results=15`,

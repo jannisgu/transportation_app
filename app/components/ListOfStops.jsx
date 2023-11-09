@@ -1,11 +1,13 @@
 "use client";
 
-import ListEntry from "@/app/components/ListEntry";
+import ListEntry from "@/app/components/StopEntry";
 import { useEffect, useState } from "react";
 
 const ListOfStops = ({ stops, favoritesOnly }) => {
+  // save state of all favorites
   const [favorites, setFavorites] = useState([]);
 
+  // fetch favorite data & update state
   useEffect(() => {
     const storedData = localStorage.getItem("favorites");
     if (storedData !== null) {
@@ -14,6 +16,7 @@ const ListOfStops = ({ stops, favoritesOnly }) => {
     }
   }, [favoritesOnly]);
 
+  // update favorites
   const updateFavorites = (id, add) => {
     let newFavs;
     if (add) {
@@ -26,7 +29,7 @@ const ListOfStops = ({ stops, favoritesOnly }) => {
   };
 
   return (
-    <ul className="searchResults">
+    <ul className="search-results">
       {stops.length > 0 &&
         stops.map((stop, key) => {
           const productTypes = Object.keys(stop.products);

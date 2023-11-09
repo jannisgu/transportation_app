@@ -6,10 +6,11 @@ import { useRouter } from "next/navigation";
 import Loading from "../loading";
 import ProductIcon from "./ProductIcon";
 
-const ListEntry = ({ productTypes, stop, favorites, updateFavorites }) => {
+const StopEntry = ({ productTypes, stop, favorites, updateFavorites }) => {
   const [favorite, setFavorite] = useState(false);
   const router = useRouter();
 
+  // check if stop is favorite
   useEffect(() => {
     if (favorites.includes(parseInt(stop.id))) {
       setFavorite(true);
@@ -19,14 +20,15 @@ const ListEntry = ({ productTypes, stop, favorites, updateFavorites }) => {
   const handleFavClick = () => {
     if (favorite) {
       updateFavorites(parseInt(stop.id), false); // false = delete from storage
-      setFavorite(false); 
+      setFavorite(false);
     } else {
       updateFavorites(parseInt(stop.id), true); // true = add to storage
       setFavorite(true);
     }
   };
 
-  const routeToDestinations = (e) => {
+  const handleStopClick = (e) => {
+    // if not clicked on favorite button or product-icons => route to destination page
     if (e.target.className === "name" || e.target.nodeName === "LI") {
       router.push(stop.id);
     }
@@ -34,7 +36,7 @@ const ListEntry = ({ productTypes, stop, favorites, updateFavorites }) => {
 
   return (
     <Suspense fallback={<Loading />}>
-      <li onClick={routeToDestinations}>
+      <li onClick={handleStopClick}>
         <div className="left">
           <button className="star-btn" onClick={handleFavClick}>
             <Image
@@ -57,4 +59,4 @@ const ListEntry = ({ productTypes, stop, favorites, updateFavorites }) => {
   );
 };
 
-export default ListEntry;
+export default StopEntry;

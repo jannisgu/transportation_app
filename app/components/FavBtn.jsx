@@ -4,7 +4,7 @@ import { useState } from "react";
 const FavBtn = ({ getFavorites, searchText }) => {
   const [active, setActive] = useState(false);
 
-  const handleFavBtn = () => {
+  const handleClick = () => {
     if (active) {
       getFavorites(true);
       setActive(false);
@@ -14,12 +14,13 @@ const FavBtn = ({ getFavorites, searchText }) => {
     }
   };
 
+  // adapt styling based on search text 
   const style = searchText !== "" ? { marginTop: "20px" } : {};
 
   return (
     <button
       className={`favs-toggle ${active && "active"}`}
-      onClick={handleFavBtn}
+      onClick={handleClick}
       style={style}
     >
       Favorites
