@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import ListEntry from "@/app/components/ListEntry";
 import { useEffect, useState } from "react";
 
