@@ -202,9 +202,6 @@ section.main-clr h2 {
   background-color: transparent;
   cursor: pointer;
 }
-.star-btn.head {
-  padding-inline: 15px;
-}
 .name {
   margin-inline: 15px;
 
@@ -282,16 +279,22 @@ section.main-clr h2 {
   max-width: 550px;
   padding: 15px 20px;
 }
-/* reload button animation */
-.departure-head>a {
+.departure-head .flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+} 
+
+.reload-btn {
   transition: var(--default-transition);
 }
-.departure-head>a:hover { 
-  rotate: 45deg;
+.reload-btn:hover { 
+  transform: rotate(45deg);
   transition: var(--default-transition);
 }
-.departure-head>a:active {
-  rotate: -720deg;
+.reload-btn:active {
+  transform: rotate(-720deg);
   transition: all 10ms ease;
 }
 

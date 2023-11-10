@@ -49,7 +49,7 @@ const DepartureHead = ({ id }) => {
   return (
     <div className="departure-head">
       <h2>Departures</h2>
-      <div>
+      <div className="flex">
         <button className="star-btn head" onClick={handleFavClick}>
           <Image
             src={`/${favorite ? "star_gold" : "star"}.png`}
@@ -58,7 +58,7 @@ const DepartureHead = ({ id }) => {
             height={30}
           />
         </button>
-        <a href={`${id}`}>
+        <a href={`${id}`} className="reload-btn">
           <Image src={"/reload.png"} alt="reload" width={30} height={30} />
         </a>
       </div>
