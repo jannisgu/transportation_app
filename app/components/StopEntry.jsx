@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import Loading from "../loading";
 import ProductIcon from "./ProductIcon";
 
-const StopEntry = ({ productTypes, stop, favorites, updateFavorites }) => {
+const StopEntry = ({ productTypes, stop, stops, favorites, updateFavorites }) => {
   const [favorite, setFavorite] = useState(false);
   const router = useRouter();
 
@@ -15,7 +15,7 @@ const StopEntry = ({ productTypes, stop, favorites, updateFavorites }) => {
     if (favorites.includes(parseInt(stop.id))) {
       setFavorite(true);
     }
-  }, []);
+  }, [stops]);
 
   const handleFavClick = () => {
     if (favorite) {

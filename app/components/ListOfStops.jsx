@@ -20,7 +20,9 @@ const ListOfStops = ({ stops, favoritesOnly }) => {
   const updateFavorites = (id, add) => {
     let newFavs;
     if (add) {
-      newFavs = favorites.concat(id);
+      if (!favorites.includes(id)) {
+        newFavs = favorites.concat(id);
+      }
     } else {
       newFavs = favorites.filter((fav) => fav !== id);
     }
@@ -40,6 +42,7 @@ const ListOfStops = ({ stops, favoritesOnly }) => {
                   key={key}
                   productTypes={productTypes}
                   stop={stop}
+                  stops={stops}
                   favorites={favorites}
                   updateFavorites={updateFavorites}
                 />
@@ -51,6 +54,7 @@ const ListOfStops = ({ stops, favoritesOnly }) => {
                 key={key}
                 productTypes={productTypes}
                 stop={stop}
+                stops={stops}
                 favorites={favorites}
                 updateFavorites={updateFavorites}
               />
