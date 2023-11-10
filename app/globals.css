@@ -291,7 +291,6 @@ section.main-clr h2 {
   transition: var(--default-transition);
 }
 .departure-head>a:active {
-  transition: var(--default-transition);
   rotate: -720deg;
   transition: all 10ms ease;
 }
@@ -326,6 +325,15 @@ section.main-clr h2 {
 
 
 /* DEPARTURES LIST STYLING */
+
+.no-departures {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  font-size: 1.4rem;
+  font-weight: 500;
+}
 
 .departures {
   width: 80%;
@@ -399,7 +407,6 @@ section.main-clr h2 {
   padding-inline: 10px;
 }
 .departure .hints {
-
   align-self: center;
   justify-self: center;
 }
@@ -457,6 +464,7 @@ section.main-clr h2 {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
   gap: 20px;
 }
 

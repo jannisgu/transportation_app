@@ -1,5 +1,6 @@
 import Departures from "./components/Departures";
 import DepartureHead from "./components/DepartureHead";
+import DepartureTitle from "./components/DepartureTitle";
 
 // fetch departure data on server
 const getDepartures = async (id) => {
@@ -16,11 +17,7 @@ const Details = async ({ params }) => {
 
   return (
     <div className="departure-page">
-      <h1>
-        {!departuresObj || departuresObj.departures.length === 0
-          ? "No Departure Data!"
-          : departuresObj.departures[0]?.stop?.name}
-      </h1>
+      <DepartureTitle id={params.id} />
       <DepartureHead id={params.id} />
       <Departures departures={departuresObj && departuresObj.departures} />
     </div>

@@ -10,7 +10,7 @@ const DepartureHead = ({ id }) => {
   // check if current stop is favorite and set if true
   useEffect(() => {
     const favs = getFavorites();
-    if (favs.includes(id)) {
+    if (favs.includes(parseInt(id))) {
       setFavorite(true);
     }
   }, []);
