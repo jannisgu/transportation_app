@@ -20,6 +20,8 @@ const DepartureHead = ({ id }) => {
     if (storedData !== null) {
       const favs = JSON.parse(storedData);
       return favs;
+    } else {
+      return [];
     }
   };
 
